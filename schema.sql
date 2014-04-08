@@ -20,6 +20,7 @@ CREATE TABLE snippets (
   css   INTEGER,
   html  INTEGER,
   javascript INTEGER,
+  created DATETIME DEFAULT CURRENT_TIMESTAMP,
   FOREIGN KEY(css) REFERENCES css(id),
   FOREIGN KEY(html) REFERENCES html(id),
   FOREIGN KEY(javascript) REFERENCES javascript(id)

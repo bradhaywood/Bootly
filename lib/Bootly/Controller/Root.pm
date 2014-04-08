@@ -3,6 +3,7 @@ package Bootly::Controller::Root;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller';
+use DateTime;
 
 __PACKAGE__->config->{namespace} = '';
 
@@ -18,6 +19,18 @@ Bootly::Controller::Root - Root Controller for Bootly
 
 =cut
 
+sub auto :Private {
+    my ($self, $c) = @_;
+    my $snippet_rs = $c->model('BootlyDB::Snippet');
+    my $recent_rs  = $snippet_rs->search_rs(
+        undef,
+        { order_by => { -desc => 'created' }, rows => 5 }
+    );
+    
+    if ($recent_rs->count > 0) { $c->stash(recent => [ $recent_rs->all ]); }
+    1;
+}
+
 =head2 index
 
 =cut
@@ -25,8 +38,9 @@ Bootly::Controller::Root - Root Controller for Bootly
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
     my $params = $c->req->body_params;
+
     if ($params->{html} or $params->{css} or $params->{js}) {
-      my $snippet_rs = $c->model('BootlyDB::Snippet');
+        my $snippet_rs = $c->model('BootlyDB::Snippet');
       my $html    = $c->model('BootlyDB::Html')->create({ code => $params->{html} });
       my $css     = $c->model('BootlyDB::Css')->create({ code => $params->{css} });
       my $js      = $c->model('BootlyDB::Javascript')->create({ code => $params->{js} });
@@ -38,6 +52,7 @@ sub index :Path :Args(0) {
         html       => $html->id,
         javascript => $js->id,
         css        => $css->id,
+        created    => DateTime->now,
       });
       
       my $uri = $c->req->uri . "${id}";

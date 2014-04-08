@@ -1,0 +1,29 @@
+CREATE TABLE javascript (
+  id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  code  TEXT NULL
+);
+
+CREATE TABLE css (
+  id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  code  TEXT NULL
+);
+
+
+CREATE TABLE html (
+  id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  code  TEXT NULL
+);
+
+CREATE TABLE snippets (
+  id    INTEGER PRIMARY KEY AUTOINCREMENT,
+  snippet_id VARCHAR NOT NULL,
+  css   INTEGER,
+  html  INTEGER,
+  javascript INTEGER,
+  FOREIGN KEY(css) REFERENCES css(id),
+  FOREIGN KEY(html) REFERENCES html(id),
+  FOREIGN KEY(javascript) REFERENCES javascript(id)
+);
+
+
+  

@@ -1,0 +1,92 @@
+<div class="col-md-12">
+  <form action="/" method="post" class="snippet-form">
+  <% IF success_msg %><div class="alert alert-success"><% success_msg %></div><% END %>
+  <div class="col-md-6">
+    <div class="code-panel">
+      javascript
+    </div>
+    <div id="js-editor" class="editor"><% IF snippet %><% snippet.javascript.code %><% END %></div>
+    <textarea class="hidden js-text" name="js"></textarea>
+  </div>
+  <div class="col-md-6">
+    <div class="code-panel">
+      css
+    </div>
+    <div id="css-editor" class="editor"><% IF snippet %><% snippet.css.code %><% END %></div>
+    <textarea class="hidden css-text" name="css"></textarea>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-6">
+        <div class="code-panel">
+          html
+        </div>
+        <div id="html-editor" class="editor"><% IF snippet %><% snippet.html.code %><% END %></div>
+        <textarea class="hidden html-text" name="html"></textarea>
+      </div>
+      <div class="col-md-6">
+        <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
+        <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="preview-wrapper">
+      <iframe src="javascript:;" id="html-preview">
+        Your browser does not support iframes, hence this won't work.
+      </iframe>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  var css     = ace.edit("css-editor"),
+      js      = ace.edit("js-editor"),
+      html    = ace.edit("html-editor"),
+      url     = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: ''),
+      runCode = $('.run-code'),
+      forkCode = $('.fork-code'),
+      snipForm = $('.snippet-form'),
+      preview = $('#html-preview');
+  
+  css.setTheme("ace/theme/dreamweaver");
+  js.setTheme("ace/theme/dreamweaver");
+  html.setTheme("ace/theme/dreamweaver");
+  css.getSession().setMode("ace/mode/css");
+  js.getSession().setMode("ace/mode/javascript");
+  html.getSession().setMode("ace/mode/html");
+  
+  css.renderer.setShowGutter(false);
+  js.renderer.setShowGutter(false);
+  html.renderer.setShowGutter(false);
+  
+  var startIt = function() {
+    var body = "<!doctype html><html lang=\"en\">";
+    body    += "<head><link rel=\"stylesheet\" href=\"" + url + "/static/css/bootstrap.min.css\">";
+    body    += "<script type=\"text/javascript\" src=\"" + url + "/static/js/jquery.min.js\"><\/script>";
+    body    += "<style type=\"text/css\">" + css.getValue() + "<\/style>";
+    body    += "<\/head><body>" + html.getValue();
+    body    += "<script type=\"text/javascript\">" + js.getValue() + "<\/script><\/body><\/html>";
+
+    var idoc = preview[0].contentDocument;
+    idoc.open();
+    idoc.writeln("");
+    idoc.write(body);
+    idoc.close();
+  };
+  
+  runCode.click(function() { startIt(); });
+  
+  forkCode.click(function() {
+    $('.html-text').text(html.getValue());
+    $('.css-text').text(css.getValue());
+    $('.js-text').text(js.getValue());
+    snipForm.submit();
+  });
+  
+  startIt();
+  
+</script>

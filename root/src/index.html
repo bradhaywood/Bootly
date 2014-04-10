@@ -31,6 +31,20 @@
           <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
           <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
           <a href="javascript:;" class="btn btn-success save-code"><i class="fa fa-save"></i> Save</a>
+          <div class="btn-group">
+            <button type="button" class="btn btn-warning"><i class="fa fa-tint"></i> Theme</button>
+            <button type="button" class="btn btn-warning dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="javascript:;" class="select-theme" data-value="monokai">Monokai</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="github">Github</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="terminal">Terminal</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="clouds">Clouds</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="tomorrow">Tomorrow</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="mono_industrial">Mono Industrial</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="dreamweaver">Dreamweaver</a></li>
+              <li><a href="javascript:;" class="select-theme" data-value="textmate">TextMate</a></li>
+            </ul>
+          </div>
         </div>
       </div>
     </div>
@@ -57,6 +71,7 @@
       forkCode = $('.fork-code'),
       saveCode = $('.save-code'),
       snipForm = $('.snippet-form'),
+      selectTheme = $('.select-theme'),
       preview = $('#html-preview');
   
   css.setTheme("ace/theme/dreamweaver");
@@ -102,6 +117,13 @@
     snipForm.submit();
   });
   
+  selectTheme.click(function() {
+    var theme = $(this).attr("data-value");
+    html.setTheme("ace/theme/" + theme);
+    js.setTheme("ace/theme/" + theme); 
+    css.setTheme("ace/theme/" + theme); 
+  });
+ 
   startIt();
   
 </script>

@@ -32,7 +32,15 @@ our $VERSION = '0.01';
 # with an external configuration file acting as an override for
 # local deployment.
 
-__PACKAGE__->config( name => 'Bootly' );
+__PACKAGE__->config(
+    name => 'Bootly',
+
+    'View::HTML' => {
+        INCLUDE_PATH => [
+            __PACKAGE__->path_to('root', 'src'),
+        ],
+    },
+);
 
 # Start the application
 __PACKAGE__->setup();

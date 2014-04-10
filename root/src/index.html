@@ -1,15 +1,17 @@
 <div class="col-md-12">
   <form action="/" method="post" class="snippet-form">
+  <input type="hidden" name="saveaction" class="saveAction" value="">
+  <input type="hidden" name="snippet_id" value="<% IF snippet %><% snippet.snippet_id %><% END %>">
   <% IF success_msg %><div class="alert alert-success"><% success_msg %></div><% END %>
   <div class="col-md-6">
-    <div class="code-panel">
+    <div class="code-panel js-panel">
       javascript
     </div>
     <div id="js-editor" class="editor"><% IF snippet %><% snippet.javascript.code %><% END %></div>
     <textarea class="hidden js-text" name="js"></textarea>
   </div>
   <div class="col-md-6">
-    <div class="code-panel">
+    <div class="code-panel css-panel">
       css
     </div>
     <div id="css-editor" class="editor"><% IF snippet %><% snippet.css.code %><% END %></div>
@@ -18,15 +20,18 @@
   <div class="row">
     <div class="col-md-12">
       <div class="col-md-6">
-        <div class="code-panel">
+        <div class="code-panel html-panel">
           html
         </div>
         <div id="html-editor" class="editor"><% IF snippet %><% snippet.html.code %><% END %></div>
         <textarea class="hidden html-text" name="html"></textarea>
       </div>
       <div class="col-md-6">
-        <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
-        <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
+        <div class="well">
+          <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
+          <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
+          <a href="javascript:;" class="btn btn-success save-code"><i class="fa fa-save"></i> Save</a>
+        </div>
       </div>
     </div>
   </div>
@@ -34,6 +39,7 @@
 </div>
 <div class="row">
   <div class="col-md-12">
+    <div class="code-panel preview-panel">Preview</div>
     <div class="preview-wrapper">
       <iframe src="javascript:;" id="html-preview">
         Your browser does not support iframes, hence this won't work.
@@ -49,6 +55,7 @@
       url     = location.protocol+'//'+location.hostname+(location.port ? ':'+location.port: ''),
       runCode = $('.run-code'),
       forkCode = $('.fork-code'),
+      saveCode = $('.save-code'),
       snipForm = $('.snippet-form'),
       preview = $('#html-preview');
   
@@ -84,6 +91,14 @@
     $('.html-text').text(html.getValue());
     $('.css-text').text(css.getValue());
     $('.js-text').text(js.getValue());
+    snipForm.submit();
+  });
+  
+  saveCode.click(function() {
+    $('.html-text').text(html.getValue());
+    $('.css-text').text(css.getValue());
+    $('.js-text').text(js.getValue());
+    $('.saveAction').val("save");
     snipForm.submit();
   });
   

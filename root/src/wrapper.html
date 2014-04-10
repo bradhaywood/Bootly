@@ -27,8 +27,15 @@
 	    margin-bottom:10px;
 	    background: #e4e4e4;
 	    text-align: right;
+        color: #fff;
+        font-weight: bold;
 	  }
 	  
+      .js-panel { background: #007fff; }
+      .css-panel { background: #3fb618; }
+      .html-panel { background: #9954bb; }
+      .preview-panel { color: black; }
+
 	  .editor {
 	    position: relative;
 	    height: 250px;
@@ -36,13 +43,20 @@
 	    border: 1px solid #e4e4e4;
 	  }
 	 
-	  .preview-wrapper { overflow: hidden; }
+	  .preview-wrapper {
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid #e4e4e4;
+      }
+
 	  #html-preview {
 	    width: 100%;
 	    padding: 0;
 	    border: 0;
 	    height:400px;
 	  }
+       
 	</style>
 </head>
 <body>

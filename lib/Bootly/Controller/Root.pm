@@ -41,24 +41,44 @@ sub index :Path :Args(0) {
 
     if ($params->{html} or $params->{css} or $params->{js}) {
         my $snippet_rs = $c->model('BootlyDB::Snippet');
-      my $html    = $c->model('BootlyDB::Html')->create({ code => $params->{html} });
-      my $css     = $c->model('BootlyDB::Css')->create({ code => $params->{css} });
-      my $js      = $c->model('BootlyDB::Javascript')->create({ code => $params->{js} });
-      my $id;
-      my @chars = ('a'..'z', '0'..'9', 'A'..'Z');
-      $id .= $chars[rand($#chars)] for (0..8);
-      my $snippet = $snippet_rs->create({
-        snippet_id => $id,
-        html       => $html->id,
-        javascript => $js->id,
-        css        => $css->id,
-        created    => DateTime->now,
-      });
-      
-      my $uri = $c->req->uri . "${id}";
-      $c->flash->{success_msg} = "Successfully created snippet ${uri}";
-      $c->res->redirect($uri);
-      $c->detach;
+        if ($params->{saveaction} and $params->{saveaction} eq 'save') {
+            my $snippet_id = $params->{snippet_id};
+            if ($snippet_id) {
+                if (my $snippet = $snippet_rs->find({ snippet_id => $snippet_id })) {
+                    my $html = $snippet->html;
+                    my $css  = $snippet->css;
+                    my $js   = $snippet->javascript;
+                    
+                    $html->update({ code => $params->{html} });
+                    $css->update({ code => $params->{css} });
+                    $js->update({ code => $params->{js} });
+
+                    $c->stash->{success_msg} = "Successfully updated snippet";
+                    $c->res->redirect("/" . $params->{snippet_id});
+                    $c->detach;
+                }
+            }
+        }
+        else {
+            my $html    = $c->model('BootlyDB::Html')->create({ code => $params->{html} });
+            my $css     = $c->model('BootlyDB::Css')->create({ code => $params->{css} });
+            my $js      = $c->model('BootlyDB::Javascript')->create({ code => $params->{js} });
+            my $id;
+            my @chars = ('a'..'z', '0'..'9', 'A'..'Z');
+            $id .= $chars[rand($#chars)] for (0..8);
+            my $snippet = $snippet_rs->create({
+              snippet_id => $id,
+              html       => $html->id,
+              javascript => $js->id,
+              css        => $css->id,
+              created    => DateTime->now,
+            });
+            
+            my $uri = $c->req->uri . "${id}";
+            $c->flash->{success_msg} = "Successfully created snippet ${uri}";
+            $c->res->redirect($uri);
+            $c->detach;
+        }
     }
 }
 

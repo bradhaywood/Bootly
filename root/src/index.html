@@ -29,6 +29,7 @@
       <div class="col-md-6">
         <div class="well">
           <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
+          <% IF snippet %><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id ]) %>" class="btn btn-danger" target="__blank"><i class="fa fa-eye"></i> View</a><% END %>
           <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
           <a href="javascript:;" class="btn btn-success save-code"><i class="fa fa-save"></i> Save</a>
           <div class="btn-group">

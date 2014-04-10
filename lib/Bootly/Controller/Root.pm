@@ -82,6 +82,24 @@ sub index :Path :Args(0) {
     }
 }
 
+sub view :Local :Args(1) {
+    my ($self, $c, $snippet_id) = @_;
+    my $snippet_rs = $c->model('BootlyDB::Snippet');
+    if (my $snippet = $snippet_rs->find({ snippet_id => $snippet_id })) {
+        my $body  = "<!doctype html><html lang=\"en\">";
+           $body .= "<head><link rel=\"stylesheet\" href=\"/static/css/bootstrap.min.css\">";
+           $body .= "<script type=\"text/javascript\" src=\"/static/js/jquery.min.js\"><\/script>";
+           $body .= "<style type=\"text/css\">" . $snippet->css->code . "<\/style>";
+           $body .= "<\/head><body>" . $snippet->html->code;
+           $body .= "<script type=\"text/javascript\">" . $snippet->javascript->code . "<\/script><\/body><\/html>";
+           $c->res->body($body);
+           $c->detach;
+    }
+
+    $c->res->redirect('/');
+    $c->detach;
+}
+
 sub default :Path {
     my ( $self, $c ) = @_;
     my $id = $c->req->path;

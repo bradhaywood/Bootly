@@ -31,14 +31,14 @@
           <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
           <% IF snippet %>
           <div class="btn-group">
-            <a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, 'full' ]) %>" class="btn btn-danger" target="_blank"><i class="fa fa-eye"></i> View</a>
+            <a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, 'full' ]) %>" class="btn btn-danger"><i class="fa fa-eye"></i> View</a>
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '601x881' ]) %>" target="_blank">Nexus 7 Portrait</a></li>
-              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '962x529' ]) %>" target="_blank">Nexus 7 Landscape</a></li>
+              <li><a href="javascript:viewDevice('<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '601x881' ]) %>', 601, 881);">Nexus 7 Portrait</a></li>
+              <li><a href="javascript:viewDevice('<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '962x529' ]) %>', 962, 529);">Nexus 7 Landscape</a></li>
               <li class="divider"></li>
-              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '320x460' ]) %>" target="_blank">iPone 5 Portrait</a></li>
-              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '568x212' ]) %>" target="_blank">iPone 5 Landscape</a></li>
+              <li><a href="javascript:viewDevice('<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '320x460' ]) %>', 320, 460);">iPone 5 Portrait</a></li>
+              <li><a href="javascript:viewDevice('<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '568x212' ]) %>', 568, 212);">iPone 5 Landscape</a></li>
             </ul>
           </div>
           <% END %>
@@ -139,4 +139,12 @@
  
   startIt();
   
+  function viewDevice(url, width, height) {
+    var left = (screen.width/2)-(width/2);
+    var top = (screen.height/2)-(height/2);
+    popupWindow = window.open(
+      url,
+      'popUpWindow',
+      'height=' + height + ',width=' + width + ',left=' + left + ',top=' + top + ',resizable=no,scrollbars=yes,toolbar=no,menubar=no,location=no,directories=no,status=no');
+  }
 </script>

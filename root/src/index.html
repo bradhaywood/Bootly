@@ -31,7 +31,7 @@
           <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
           <% IF snippet %>
           <div class="btn-group">
-            <a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, 'full' ]) %>" class="btn btn-danger"><i class="fa fa-eye"></i> View</a>
+            <a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, 'full' ]) %>" class="btn btn-danger" target="_blank"><i class="fa fa-eye"></i> View</a>
             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
               <li><a href="javascript:viewDevice('<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '601x881' ]) %>', 601, 881);">Nexus 7 Portrait</a></li>

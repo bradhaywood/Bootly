@@ -29,7 +29,19 @@
       <div class="col-md-6">
         <div class="well">
           <a href="javascript:;" class="btn btn-primary run-code"><i class="fa fa-youtube-play"></i> Run</a>
-          <% IF snippet %><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id ]) %>" class="btn btn-danger" target="__blank"><i class="fa fa-eye"></i> View</a><% END %>
+          <% IF snippet %>
+          <div class="btn-group">
+            <a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, 'full' ]) %>" class="btn btn-danger" target="_blank"><i class="fa fa-eye"></i> View</a>
+            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '601x881' ]) %>" target="_blank">Nexus 7 Portrait</a></li>
+              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '962x529' ]) %>" target="_blank">Nexus 7 Landscape</a></li>
+              <li class="divider"></li>
+              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '320x460' ]) %>" target="_blank">iPone 5 Portrait</a></li>
+              <li><a href="<% c.uri_for(c.controller.action_for('view'), [ snippet.snippet_id, '568x212' ]) %>" target="_blank">iPone 5 Landscape</a></li>
+            </ul>
+          </div>
+          <% END %>
           <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
           <% IF snippet %><a href="javascript:;" class="btn btn-success save-code"><i class="fa fa-save"></i> Save</a><% END %>
           <div class="btn-group">

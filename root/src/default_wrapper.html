@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<title>Bootly<% IF title %> / <% title %><% END %></title>
+
+	<!-- Meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="Brad Haywood">
+
+	<!-- CSS -->
+	<link rel="stylesheet" href="<% c.uri_for('/static/css/bootstrap.min.css') %>">
+	<link rel="stylesheet" href="<% c.uri_for('/static/css/font-awesome.min.css') %>">
+	
+	<!-- CSS Overrides -->
+	<link href="<% c.uri_for('/static/images/favicon.png') %>" rel="icon" type="image/png">
+	<link rel="stylesheet" href="<% c.uri_for('/static/css/style.css') %>">
+	<script type="text/javascript" src="<% c.uri_for('/static/js/jquery.min.js') %>"></script>
+	<script type="text/javascript" src="<% c.uri_for('/static/js/bootstrap.min.js') %>"></script>
+	<script type="text/javascript" src="<% c.uri_for('/static/js/ace/ace.js') %>" charset="utf-8"></script>
+	
+	<style type="text/css">
+	  .code-panel {
+	    display: block;
+	    padding: 5px 20px 5px 5px;
+	    margin-bottom:10px;
+	    background: #e4e4e4;
+	    text-align: right;
+        color: #fff;
+        font-weight: bold;
+	  }
+	  
+      .js-panel { background: #007fff; }
+      .css-panel { background: #3fb618; }
+      .html-panel { background: #9954bb; }
+      .preview-panel { color: black; }
+
+	  .editor {
+	    position: relative;
+	    height: 250px;
+	    margin-bottom: 5px;
+	    border: 1px solid #e4e4e4;
+	  }
+	 
+	  .preview-wrapper {
+        overflow: hidden;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        border: 1px solid #e4e4e4;
+      }
+
+	  #html-preview {
+	    width: 100%;
+	    padding: 0;
+	    border: 0;
+	    height:400px;
+	  }
+       
+	</style>
+</head>
+<body>
+  <% INCLUDE navbar.html %>
+	<div class="container">
+    <div class="row">
+      <% content | none %>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,9 @@
+<style type="text/css">
+  #bootly-preview {
+    width: <% IF width %><% width %><% ELSE %>100%<% END %>;
+    height: <% IF height %><% height %><% ELSE %>100%<% END %>;
+    border: 1px solid #c0c0c0;
+  }
+</style>
+
+<iframe id="bootly-preview" src="<% c.uri_for(c.controller.action_for('preview'), [ snippet_id ]) %>">Your browser does not support iFrames</iframe>

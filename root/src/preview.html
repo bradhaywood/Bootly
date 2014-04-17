@@ -1,0 +1,21 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+    <style type="text/css">
+      #bootly-preview {
+        width: 100%;
+        height: 100%;
+      }
+
+      <% snippet.css.code | none %>
+    </style>
+  </head>
+  <body>
+    <% snippet.html.code | none %>
+    <script type="text/javascript">
+      <% snippet.javascript.code | none %>
+    </script>
+  </body>
+</html>

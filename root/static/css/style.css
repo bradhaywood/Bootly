@@ -1,0 +1,7 @@
+@font-face {
+  font-family: 'Inconsolata';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Inconsolata'), url(../fonts/Inconsolata.ttf) format('truetype');
+}
+.ace_editor { font-family: 'Inconsolata', monospace; font-size: 13px; }

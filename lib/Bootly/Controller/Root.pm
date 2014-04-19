@@ -86,6 +86,7 @@ sub preview :Local :Args(1) {
     my ($self, $c, $snippet_id) = @_;
     my $snippet_rs = $c->model('BootlyDB::Snippet');
     if (my $snippet = $snippet_rs->find({ snippet_id => $snippet_id })) {
+        $c->stash->{wrapper} = 'blank.html';
         $c->stash->{snippet} = $snippet;
         $c->detach;
     }

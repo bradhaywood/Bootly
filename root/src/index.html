@@ -42,7 +42,7 @@
             </ul>
           </div>
           <% END %>
-          <a href="javascript:;" class="btn btn-default fork-code"><i class="fa fa-code-fork"></i> Fork</a>
+          <a href="javascript:;" class="btn btn-<% IF snippet %>default<% ELSE %>success<% END %> fork-code"><i class="fa <% IF snippet %>fa-code-fork<% ELSE %>fa-save<% END %>"></i> <% IF snippet %>Fork<% ELSE %>Save<% END %></a>
           <% IF snippet %><a href="javascript:;" class="btn btn-success save-code"><i class="fa fa-save"></i> Save</a><% END %>
           <div class="btn-group">
             <button type="button" class="btn btn-warning"><i class="fa fa-tint"></i> Theme</button>

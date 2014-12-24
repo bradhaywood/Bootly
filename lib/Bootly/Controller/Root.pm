@@ -24,7 +24,7 @@ sub auto :Private {
     my $snippet_rs = $c->model('BootlyDB::Snippet');
     my $recent_rs  = $snippet_rs->search_rs(
         undef,
-        { order_by => { -desc => 'created' }, rows => 5 }
+        { order_by => { -desc => 'created' }, rows => 15 }
     );
     
     if ($recent_rs->count > 0) { $c->stash(recent => [ $recent_rs->all ]); }

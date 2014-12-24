@@ -1,3 +1,22 @@
+<style type="text/css">
+    .fullScreen .fullScreen-editor{
+       height: auto!important;
+       width: auto!important;
+       border: 0;
+        margin: 0;
+        position: fixed !important;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        z-index: 9998
+    }
+
+    .fullScreen {
+        overflow: hidden
+    }
+</style>
+
 <div class="col-md-12">
   <form action="/" method="post" class="snippet-form">
   <input type="hidden" name="saveaction" class="saveAction" value="">
@@ -85,7 +104,8 @@
       saveCode = $('.save-code'),
       snipForm = $('.snippet-form'),
       selectTheme = $('.select-theme'),
-      preview = $('#html-preview');
+      preview = $('#html-preview'),
+      $fullScreen = false
   
   css.setTheme("ace/theme/dreamweaver");
   js.setTheme("ace/theme/dreamweaver");
@@ -98,6 +118,35 @@
   js.renderer.setShowGutter(false);
   html.renderer.setShowGutter(false);
   
+  var ed, i, eds = [js, css, html];
+  for (i in eds) {
+    ed = eds[i];
+    ed.commands.addCommand({
+        name: "fullscreen",
+        bindKey: {win: "Ctrl-M", mac: "Command-Option-M"},
+        exec: function(editor) {
+            var dom = ace.require("ace/lib/dom");
+            var commands = ace.require("ace/commands/default_commands").commands;
+
+            // add command for all new editors
+            if ($fullScreen) {
+                dom.removeCssClass(document.body, "fullScreen");
+                dom.removeCssClass(editor.container, "fullScreen-editor");
+                editor.resize();
+                fullScreenMenu.css('display', 'none');
+                $fullScreen = false;
+            }
+            else {
+                dom.toggleCssClass(document.body, "fullScreen");
+                dom.toggleCssClass(editor.container, "fullScreen-editor");
+                editor.resize();
+                fullScreenMenu.css('display', 'block');
+                $fullScreen = true;
+            }
+       }
+    });
+  }
+
   var startIt = function() {
     var body = "<!doctype html><html lang=\"en\">";
     body    += "<head><link rel=\"stylesheet\" href=\"" + url + "/static/css/bootstrap.min.css\">";
